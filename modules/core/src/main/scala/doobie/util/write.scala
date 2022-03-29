@@ -48,8 +48,8 @@ final class Write[A](
    */
   def toFragment(a: A, sql: String = List.fill(length)("?").mkString(",")): Fragment = {
     val elems: List[Elem] = (puts zip toList(a)).map {
-      case ((p: Put[a], NoNulls), a) => Elem.Arg(a.asInstanceOf[a], p)
-      case ((p: Put[a], Nullable), a) => Elem.Opt(a.asInstanceOf[Option[a]], p)
+      case ((p: Put[a], NoNulls), a) => Elem.Arg[a](a.asInstanceOf[a], p)
+      case ((p: Put[a], Nullable), a) => Elem.Opt[a](a.asInstanceOf[Option[a]], p)
     }
     Fragment(sql, elems, None)
   }
